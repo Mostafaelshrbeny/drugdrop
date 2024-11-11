@@ -14,7 +14,6 @@ class AskPostsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> titles = ['طلبات', 'عروض', 'بدائل'];
     return Consumer<NavigationProvider>(builder: (context, value, child) {
       return RefreshIndicator(
         onRefresh: () async {
@@ -27,15 +26,6 @@ class AskPostsPage extends StatelessWidget {
         child: Directionality(
           textDirection: TextDirection.rtl,
           child: Scaffold(
-            appBar: AppBar(
-              title: Text(
-                titles[currentIndex],
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge!
-                    .copyWith(color: Colors.white),
-              ),
-            ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.startFloat,
             body: SafeArea(

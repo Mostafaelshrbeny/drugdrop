@@ -1,4 +1,5 @@
 import 'package:findit/utiles/color_helper.dart';
+import 'package:findit/utiles/context_extension.dart';
 import 'package:findit/utiles/images_const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,6 +28,8 @@ class PostCard extends StatelessWidget {
         ],
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
+        textDirection: TextDirection.rtl,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(

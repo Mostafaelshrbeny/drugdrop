@@ -7,7 +7,7 @@ class GetPostsImpl extends GetPostsRepo {
   Future<List<PostEntity>> getPosts({required String type}) async {
     List<PostEntity> posts = [];
     QuerySnapshot data =
-        await FirebaseFirestore.instance.collection(type).limit(30).get();
+        await FirebaseFirestore.instance.collection(type).limit(100).get();
     for (var element in data.docs) {
       posts.add(
           PostEntity.fromFirestore(element.data() as Map<String, dynamic>));

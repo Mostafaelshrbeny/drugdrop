@@ -2,6 +2,7 @@ import 'package:findit/features/MainPage/domain/repositories/get_posts_repo.dart
 import 'package:findit/features/MainPage/domain/use_cases/hive_box.dart';
 import 'package:findit/features/Posts/domain/entities/post_entity.dart';
 import 'package:findit/features/Posts/presentation/pages/ask_page.dart';
+import 'package:findit/features/Posts/presentation/pages/offers_page.dart';
 
 import 'package:findit/utiles/cache_keys.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,9 +13,7 @@ class NavigationProvider extends ChangeNotifier {
     const AskPostsPage(
       currentIndex: 0,
     ),
-    const AskPostsPage(
-      currentIndex: 1,
-    ),
+    const OffersPage(),
     const AskPostsPage(
       currentIndex: 2,
     )
@@ -51,11 +50,7 @@ class NavigationProvider extends ChangeNotifier {
         currentPosts = ordersPosts;
         hide = false;
         break;
-      case 1:
-        currentPageType = CacheKeys.offers;
-        currentPosts = offersPosts;
-        hide = false;
-        break;
+
       case 2:
         currentPageType = CacheKeys.replacement;
         hide = !AppHiveBox.appBox!.get(CacheKeys.doctor);

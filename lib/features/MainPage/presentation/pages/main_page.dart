@@ -1,4 +1,3 @@
-import 'package:findit/features/MainPage/data/repositories_impl/get_posts_impl.dart';
 import 'package:findit/features/MainPage/presentation/blocs/navigation_provider.dart';
 import 'package:findit/utiles/color_helper.dart';
 import 'package:flutter/material.dart';
@@ -13,11 +12,23 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  List<String> titles = ['طلبات', 'عروض', 'بدائل'];
+
   @override
   Widget build(BuildContext context) {
     return Consumer<NavigationProvider>(
       builder: (context, value, child) {
         return Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            title: Text(
+              titles[value.currentPage],
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge!
+                  .copyWith(color: Colors.white),
+            ),
+          ),
           resizeToAvoidBottomInset: false,
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
