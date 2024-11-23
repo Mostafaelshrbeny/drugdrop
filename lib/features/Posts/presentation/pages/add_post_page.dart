@@ -1,7 +1,9 @@
 import 'package:findit/features/Posts/data/repositories_impl/add_post_repoimpl.dart';
+import 'package:findit/features/Posts/domain/use_cases/app_snack_bar.dart';
 import 'package:findit/features/Posts/presentation/provider/add_post_provider.dart';
 import 'package:findit/features/Posts/presentation/widgets/app_custom_textfield.dart';
 import 'package:findit/features/Posts/presentation/widgets/custom_button.dart';
+import 'package:findit/utiles/cache_keys.dart';
 import 'package:findit/utiles/color_helper.dart';
 import 'package:findit/utiles/context_extension.dart';
 import 'package:findit/utiles/images_const.dart';
@@ -34,6 +36,7 @@ class AddPostPage extends StatelessWidget {
                     height: context.height / 2.5,
                   ),
                   AppCustomTextField(
+                    inputType: TextInputType.number,
                     validateMsg: 'Please Enter Phone Number',
                     fieldController: value.phoneController,
                     label: 'Phone Number',
@@ -88,11 +91,20 @@ class AddPostPage extends StatelessWidget {
                   AppCustomButton(
                     ontap: () async {
                       if (value.fKey.currentState!.validate()) {
-                        await value.addPost(
-                          context: context,
-                          addpost: AddPostRepoimpl(),
-                          type: postType,
-                        );
+                        if (postType == CacheKeys.offers &&
+                            value.pickedDrug == null) {
+                          AppSnackBar.customSnack(
+                              result: 'Please Pick a Drug',
+                              context: context,
+                              backgroundcolor: Colors.red,
+                              textcolor: Colors.white);
+                        } else {
+                          await value.addPost(
+                            context: context,
+                            addpost: AddPostRepoimpl(),
+                            type: postType,
+                          );
+                        }
                       }
                     },
                     child: value.isloading

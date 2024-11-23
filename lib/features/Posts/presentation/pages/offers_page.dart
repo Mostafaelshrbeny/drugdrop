@@ -70,6 +70,7 @@ class OffersPage extends StatelessWidget {
           padding: EdgeInsets.only(bottom: context.height / 8, right: 8.w),
           child: FloatingActionButton(
             onPressed: () {
+//AuthRepoimpl().signOut();
               Navigator.push(
                   context,
                   MaterialPageRoute(

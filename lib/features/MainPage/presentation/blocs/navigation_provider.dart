@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:findit/features/MainPage/domain/repositories/get_posts_repo.dart';
 import 'package:findit/features/MainPage/domain/use_cases/hive_box.dart';
 import 'package:findit/features/Posts/domain/entities/post_entity.dart';
@@ -36,7 +38,7 @@ class NavigationProvider extends ChangeNotifier {
 
       doctorPosts = await getRepo.getPosts(type: CacheKeys.replacement);
     } on FirebaseException catch (e) {
-      print(e.message);
+      log(e.toString());
     }
     isLoading = false;
     notifyListeners();
@@ -49,6 +51,12 @@ class NavigationProvider extends ChangeNotifier {
         currentPageType = CacheKeys.orders;
         currentPosts = ordersPosts;
         hide = false;
+        break;
+
+      case 1:
+        currentPageType = CacheKeys.offers;
+        hide = false;
+
         break;
 
       case 2:

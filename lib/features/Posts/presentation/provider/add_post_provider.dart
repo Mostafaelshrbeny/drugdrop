@@ -47,10 +47,12 @@ class AddPostProvider extends ChangeNotifier {
             backgroundcolor: Colors.green);
       }
     } on FirebaseException catch (e) {
-      AppSnackBar.customSnack(
-          result: e.message ?? "Something went wrong",
-          context: context,
-          backgroundcolor: Colors.red);
+      if (context.mounted) {
+        AppSnackBar.customSnack(
+            result: e.message ?? "Something went wrong",
+            context: context,
+            backgroundcolor: Colors.red);
+      }
     }
     isloading = false;
     notifyListeners();

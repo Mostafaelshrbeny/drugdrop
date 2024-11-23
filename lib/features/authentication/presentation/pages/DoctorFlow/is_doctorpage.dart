@@ -37,7 +37,7 @@ class IsDoctorPage extends StatelessWidget {
                                 value: "Yes",
                                 groupValue: value.isDoctor,
                                 onChanged: (val) {
-                                  value.setDoctor(val!);
+                                  value.setDoctor(val ?? "Yes");
                                 }),
                             const Text("Yes"),
                             Gap(context.width / 3),
@@ -45,7 +45,7 @@ class IsDoctorPage extends StatelessWidget {
                                 value: "No",
                                 groupValue: value.isDoctor,
                                 onChanged: (val) {
-                                  value.setDoctor(val!);
+                                  value.setDoctor(val ?? 'No');
                                 }),
                             const Text("No"),
                           ],

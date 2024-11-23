@@ -1,4 +1,6 @@
 import 'package:findit/features/MainPage/presentation/blocs/navigation_provider.dart';
+import 'package:findit/features/authentication/data/repositories_impl/Auth_RepoImpl/auth_repoimpl.dart';
+import 'package:findit/features/authentication/presentation/pages/LoginPage/login_page.dart';
 import 'package:findit/utiles/color_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,6 +22,20 @@ class _MainPageState extends State<MainPage> {
       builder: (context, value, child) {
         return Scaffold(
           appBar: AppBar(
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 16),
+                child: InkWell(
+                    onTap: () {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (_) => const LoginPage()),
+                          (route) => false);
+                      AuthRepoimpl().signOut();
+                    },
+                    child: const Icon(Icons.logout, color: Colors.red)),
+              )
+            ],
             centerTitle: true,
             title: Text(
               titles[value.currentPage],
