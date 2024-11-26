@@ -14,7 +14,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  List<String> titles = ['طلبات', 'عروض', 'بدائل'];
+  List<String> titles = ['عروض', 'طلبات', 'بدائل'];
 
   @override
   Widget build(BuildContext context) {

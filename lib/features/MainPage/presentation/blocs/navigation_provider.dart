@@ -5,6 +5,7 @@ import 'package:findit/features/MainPage/domain/use_cases/hive_box.dart';
 import 'package:findit/features/Posts/domain/entities/post_entity.dart';
 import 'package:findit/features/Posts/presentation/pages/ask_page.dart';
 import 'package:findit/features/Posts/presentation/pages/offers_page.dart';
+import 'package:findit/features/Posts/presentation/pages/replacement.dart';
 
 import 'package:findit/utiles/cache_keys.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,13 +13,11 @@ import 'package:flutter/material.dart';
 
 class NavigationProvider extends ChangeNotifier {
   List<Widget> pages = [
-    const AskPostsPage(
-      currentIndex: 0,
-    ),
     const OffersPage(),
     const AskPostsPage(
-      currentIndex: 2,
-    )
+      currentIndex: 1,
+    ),
+    const ReplacementPage()
   ];
   List<PostEntity> ordersPosts = [];
   List<PostEntity> offersPosts = [];
@@ -34,7 +33,7 @@ class NavigationProvider extends ChangeNotifier {
     try {
       ordersPosts = await getRepo.getPosts(type: CacheKeys.orders);
       currentPosts = ordersPosts;
-      offersPosts = await getRepo.getPosts(type: CacheKeys.offers);
+      // offersPosts = await getRepo.getPosts(type: CacheKeys.offers);
 
       doctorPosts = await getRepo.getPosts(type: CacheKeys.replacement);
     } on FirebaseException catch (e) {
@@ -47,13 +46,13 @@ class NavigationProvider extends ChangeNotifier {
   navigatePage({required int index, required BuildContext context}) {
     currentPage = index;
     switch (index) {
-      case 0:
+      case 1:
         currentPageType = CacheKeys.orders;
         currentPosts = ordersPosts;
         hide = false;
         break;
 
-      case 1:
+      case 0:
         currentPageType = CacheKeys.offers;
         hide = false;
 

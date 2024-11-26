@@ -16,47 +16,39 @@ class AskPostsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<NavigationProvider>(builder: (context, value, child) {
       return RefreshIndicator(
-        onRefresh: () async {
-          await value.getData(getRepo: GetPostsImpl());
-          if (context.mounted) {
-            value.navigatePage(index: currentIndex, context: context);
-          }
-          return;
-        },
-        child: Directionality(
-          textDirection: TextDirection.rtl,
-          child: Scaffold(
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.startFloat,
-            body: SafeArea(
-              child: value.isLoading
-                  ? const Center(
-                      child: CircularProgressIndicator(color: Colors.white))
-                  : PostsPresentList(posts: value.currentPosts),
-            ),
-            floatingActionButton: value.hide
-                ? null
-                : Padding(
-                    padding:
-                        EdgeInsets.only(bottom: context.height / 8, right: 8.w),
-                    child: FloatingActionButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => AddPostPage(
-                                      postType: value.currentPageType,
-                                    )));
-                      },
-                      child: const Icon(
-                        Icons.add,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-          ),
-        ),
-      );
+          onRefresh: () async {
+            await value.getData(getRepo: GetPostsImpl());
+            if (context.mounted) {
+              value.navigatePage(index: currentIndex, context: context);
+            }
+            return;
+          },
+          child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Scaffold(
+                  floatingActionButtonLocation:
+                      FloatingActionButtonLocation.startFloat,
+                  body: SafeArea(
+                      child: value.isLoading
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                  color: Colors.white))
+                          : PostsPresentList(posts: value.currentPosts)),
+                  floatingActionButton: value.hide
+                      ? null
+                      : Padding(
+                          padding: EdgeInsets.only(
+                              bottom: context.height / 8, right: 8.w),
+                          child: FloatingActionButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => AddPostPage(
+                                            postType: value.currentPageType)));
+                              },
+                              child: const Icon(Icons.add,
+                                  color: Colors.white))))));
     });
   }
 }

@@ -21,106 +21,109 @@ class AddPostPage extends StatelessWidget {
     return ChangeNotifierProvider(
         create: (_) => AddPostProvider(),
         child: Scaffold(
-          extendBodyBehindAppBar: true,
-          appBar: AppBar(
-            forceMaterialTransparency: true,
-          ),
-          body: Consumer<AddPostProvider>(builder: (context, value, child) {
-            return Form(
-              key: value.fKey,
-              child: ListView(
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-                children: [
-                  Image.asset(
-                    "assets/images/dragdropSplash.png",
-                    height: context.height / 2.5,
-                  ),
-                  AppCustomTextField(
-                    inputType: TextInputType.number,
-                    validateMsg: 'Please Enter Phone Number',
-                    fieldController: value.phoneController,
-                    label: 'Phone Number',
-                  ),
-                  Gap(20.h),
-                  AppCustomTextField(
-                    validateMsg: 'Please Enter Post Body',
-                    fieldController: value.bodyController,
-                    label: 'Post',
-                    maxLines: 7,
-                    minLines: 3,
-                  ),
-                  Gap(20.h),
-                  AppCustomButton(
-                    ontap: () {
-                      showModalBottomSheet(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25)),
-                          context: context,
-                          builder: (context) => ListView.separated(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 16.h, horizontal: 16.w),
-                                itemBuilder: (context, index) =>
-                                    AppCustomButton(
-                                        backgrondcolor:
-                                            ColorHelper.darkBackground,
-                                        borderColor: ColorHelper.darkBackground,
-                                        child: Text(
-                                            imageConst[index]['name'] ?? " ",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleSmall!
-                                                .copyWith(color: Colors.white)),
-                                        ontap: () {
-                                          value.setPickedDrug(
-                                              drug: imageConst[index]['name'],
-                                              image: index);
-                                          Navigator.pop(context);
-                                        }),
-                                separatorBuilder: (context, index) => Gap(10.h),
-                                itemCount: imageConst.length,
-                              ));
-                    },
-                    child: Text(
-                        "Picked Drug : ${value.pickedDrug ?? 'Pick Drug Image'}",
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleSmall!
-                            .copyWith(color: ColorHelper.white)),
-                  ),
-                  const Gap(30),
-                  AppCustomButton(
-                    ontap: () async {
-                      if (value.fKey.currentState!.validate()) {
-                        if (postType == CacheKeys.offers &&
-                            value.pickedDrug == null) {
-                          AppSnackBar.customSnack(
-                              result: 'Please Pick a Drug',
-                              context: context,
-                              backgroundcolor: Colors.red,
-                              textcolor: Colors.white);
-                        } else {
-                          await value.addPost(
-                            context: context,
-                            addpost: AddPostRepoimpl(),
-                            type: postType,
-                          );
-                        }
-                      }
-                    },
-                    child: value.isloading
-                        ? const Center(child: CircularProgressIndicator())
-                        : Text(
-                            "Post",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall!
-                                .copyWith(color: ColorHelper.white),
-                          ),
-                  )
-                ],
-              ),
-            );
-          }),
-        ));
+            extendBodyBehindAppBar: true,
+            appBar: AppBar(
+              forceMaterialTransparency: true,
+            ),
+            body: Consumer<AddPostProvider>(builder: (context, value, child) {
+              return Form(
+                  key: value.fKey,
+                  child: ListView(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 16.w, vertical: 16.h),
+                      children: [
+                        Image.asset("assets/images/dragdropSplash.png",
+                            height: context.height / 2.5),
+                        AppCustomTextField(
+                            inputType: TextInputType.number,
+                            validateMsg: 'Please Enter Phone Number',
+                            fieldController: value.phoneController,
+                            label: 'Phone Number'),
+                        AppCustomTextField(
+                            validateMsg: 'Please Enter Your Address',
+                            fieldController: value.phoneController,
+                            label: 'Address'),
+                        if (postType == CacheKeys.offers)
+                          AppCustomTextField(
+                              validateMsg: 'Please Enter Amount',
+                              fieldController: value.phoneController,
+                              label: 'Amount'),
+                        Gap(20.h),
+                        AppCustomTextField(
+                            validateMsg: 'Please Enter Post Body',
+                            fieldController: value.bodyController,
+                            label: 'Post',
+                            maxLines: 7,
+                            minLines: 3),
+                        Gap(20.h),
+                        AppCustomButton(
+                            ontap: () {
+                              showModalBottomSheet(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(25)),
+                                  context: context,
+                                  builder: (context) => ListView.separated(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 16.h, horizontal: 16.w),
+                                      itemBuilder: (context, index) =>
+                                          AppCustomButton(
+                                              backgrondcolor:
+                                                  ColorHelper.darkBackground,
+                                              borderColor:
+                                                  ColorHelper.darkBackground,
+                                              child: Text(
+                                                  imageConst[index]['name'] ??
+                                                      " ",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall!
+                                                      .copyWith(
+                                                          color: Colors.white)),
+                                              ontap: () {
+                                                value.setPickedDrug(
+                                                    drug: imageConst[index]
+                                                        ['name'],
+                                                    image: index);
+                                                Navigator.pop(context);
+                                              }),
+                                      separatorBuilder: (context, index) =>
+                                          Gap(10.h),
+                                      itemCount: imageConst.length));
+                            },
+                            child: Text(
+                                "Picked Drug : ${value.pickedDrug ?? 'Pick Drug Image'}",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(color: ColorHelper.white))),
+                        const Gap(30),
+                        AppCustomButton(
+                            ontap: () async {
+                              if (value.fKey.currentState!.validate()) {
+                                if (postType == CacheKeys.offers &&
+                                    value.pickedDrug == null) {
+                                  AppSnackBar.customSnack(
+                                      result: 'Please Pick a Drug',
+                                      context: context,
+                                      backgroundcolor: Colors.red,
+                                      textcolor: Colors.white);
+                                } else {
+                                  await value.addPost(
+                                      context: context,
+                                      addpost: AddPostRepoimpl(),
+                                      type: postType);
+                                }
+                              }
+                            },
+                            child: value.isloading
+                                ? const Center(
+                                    child: CircularProgressIndicator())
+                                : Text("Post",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(color: ColorHelper.white)))
+                      ]));
+            })));
   }
 }
