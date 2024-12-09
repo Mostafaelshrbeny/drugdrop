@@ -1,5 +1,5 @@
-import 'package:findit/features/Posts/domain/entities/post_entity.dart';
 import 'package:findit/features/Posts/presentation/widgets/post_card.dart';
+import 'package:findit/utiles/images_const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -7,9 +7,8 @@ import 'package:gap/gap.dart';
 class PostsPresentList extends StatelessWidget {
   const PostsPresentList({
     super.key,
-    required this.posts,
   });
-  final List<PostEntity> posts;
+
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
@@ -17,14 +16,16 @@ class PostsPresentList extends StatelessWidget {
       itemCount: posts.length,
       itemBuilder: (context, index) {
         return PostCard(
-          name: posts[index].name,
-          body: posts[index].body,
-          imageUrl: posts[index].imageUrl,
-          phoneNumber: posts[index].phoneNumber,
+          name: posts[index]['username'] ?? "",
+          body: posts[index]['postContent'] ?? "",
+          imageUrl: null,
+          address: posts[index]['location'],
+          phoneNumber: posts[index]['phoneNumber'] ?? '',
           isVerified: false,
+          comment: posts[index]['comment'],
         );
       },
-      separatorBuilder: (BuildContext context, int index) => Gap(20.h),
+      separatorBuilder: (BuildContext context, int index) => Gap(2.h),
     );
   }
 }

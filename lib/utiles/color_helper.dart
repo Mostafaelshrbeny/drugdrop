@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ColorHelper {
-  static const Color darkBackground = Color.fromRGBO(31, 71, 111, 1);
+  static const Color darkBackground = Color.fromRGBO(25, 157, 187, 1);
   static const Color blue = Colors.blue;
   static const Color black = Colors.black;
   static const Color white = Colors.white;

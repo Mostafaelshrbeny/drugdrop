@@ -45,7 +45,8 @@ class LoginPage extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .displaySmall!
-                              .copyWith(color: ColorHelper.lightGrey)),
+                              .copyWith(
+                                  color: const Color.fromRGBO(31, 71, 111, 1))),
                       Gap(30.h),
                       AppCustomTextField(
                           validateMsg: "Please Enter a valid Email",
@@ -93,7 +94,8 @@ class LoginPage extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .displayMedium!
-                              .copyWith(color: ColorHelper.lightGrey),
+                              .copyWith(
+                                  color: const Color.fromRGBO(31, 71, 111, 1)),
                         ),
                       ),
                       Gap(40.h),

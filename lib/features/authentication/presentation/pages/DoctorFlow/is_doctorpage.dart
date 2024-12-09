@@ -63,7 +63,7 @@ class IsDoctorPage extends StatelessWidget {
                                                 ? const DoctorIdPage()
                                                 : const SignupPage())));
                           },
-                          backgrondcolor: ColorHelper.buttonColor,
+                          backgrondcolor: const Color.fromRGBO(31, 71, 111, 1),
                           child: Text(
                             "Next ...",
                             style: Theme.of(context)

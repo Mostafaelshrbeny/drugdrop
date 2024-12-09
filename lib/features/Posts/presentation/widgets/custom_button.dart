@@ -1,4 +1,3 @@
-import 'package:findit/utiles/color_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -28,9 +27,10 @@ class AppCustomButton extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           border: withBorder
-              ? Border.all(color: borderColor ?? ColorHelper.buttonColor)
+              ? Border.all(
+                  color: borderColor ?? const Color.fromRGBO(31, 71, 111, 1))
               : null,
-          color: backgrondcolor ?? ColorHelper.buttonColor,
+          color: backgrondcolor ?? const Color.fromRGBO(31, 71, 111, 1),
           borderRadius: BorderRadius.circular(10.r),
         ),
         child: Center(child: child),

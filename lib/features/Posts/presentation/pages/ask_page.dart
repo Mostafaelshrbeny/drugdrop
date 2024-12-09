@@ -33,7 +33,7 @@ class AskPostsPage extends StatelessWidget {
                           ? const Center(
                               child: CircularProgressIndicator(
                                   color: Colors.white))
-                          : PostsPresentList(posts: value.currentPosts)),
+                          : const PostsPresentList()),
                   floatingActionButton: value.hide
                       ? null
                       : Padding(

@@ -1,4 +1,3 @@
-import 'package:findit/features/MainPage/presentation/blocs/navigation_provider.dart';
 import 'package:findit/features/Posts/presentation/pages/add_post_page.dart';
 import 'package:findit/features/Posts/presentation/pages/offer_detailes.dart';
 import 'package:findit/utiles/cache_keys.dart';
@@ -41,14 +40,17 @@ class OffersPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                         color: ColorHelper.white),
                     child: Column(children: [
-                      ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image(
-                              image:
-                                  AssetImage(imageConst[index]["image"] ?? ''),
-                              fit: BoxFit.fitWidth,
-                              height: context.height / 6,
-                              width: double.infinity)),
+                      Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.r),
+                            border: Border.all(color: Colors.grey, width: 0.8),
+                            image: DecorationImage(
+                                image: AssetImage(
+                                    imageConst[index]["image"] ?? ''),
+                                fit: BoxFit.cover),
+                          ),
+                          height: context.height / 7,
+                          width: double.infinity),
                       const Spacer(),
                       Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -57,7 +59,8 @@ class OffersPage extends StatelessWidget {
                       Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8),
                           child: Text(imageConst[index]['amount'] ?? '',
-                              style: Theme.of(context).textTheme.titleSmall))
+                              style: Theme.of(context).textTheme.titleSmall)),
+                      const Gap(5)
                     ]))),
             itemCount: imageConst.length),
         floatingActionButton: Padding(

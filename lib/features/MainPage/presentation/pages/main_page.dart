@@ -18,69 +18,74 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<NavigationProvider>(
-      builder: (context, value, child) {
-        return Scaffold(
-          appBar: AppBar(
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 16),
-                child: InkWell(
-                    onTap: () {
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (_) => const LoginPage()),
-                          (route) => false);
-                      AuthRepoimpl().signOut();
-                    },
-                    child: const Icon(Icons.logout, color: Colors.red)),
-              )
-            ],
-            centerTitle: true,
-            title: Text(
-              titles[value.currentPage],
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge!
-                  .copyWith(color: Colors.white),
-            ),
-          ),
-          resizeToAvoidBottomInset: false,
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerFloat,
-          body: value.pages[value.currentPage],
-          floatingActionButton: Container(
-            margin: EdgeInsets.symmetric(vertical: 20.h, horizontal: 30.w),
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: ColorHelper.black.withOpacity(0.7),
-                  offset: const Offset(2, 4),
-                  blurRadius: 8,
+    return ChangeNotifierProvider(
+      create: (_) => NavigationProvider(),
+      child: Consumer<NavigationProvider>(
+        builder: (context, value, child) {
+          return Scaffold(
+            appBar: AppBar(
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 16),
+                  child: InkWell(
+                      onTap: () {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const LoginPage()),
+                            (route) => false);
+                        AuthRepoimpl().signOut();
+                      },
+                      child: const Icon(Icons.logout, color: Colors.red)),
                 )
               ],
-              borderRadius: BorderRadius.circular(10),
-              color: ColorHelper.darkBackground,
+              centerTitle: true,
+              title: Text(
+                titles[value.currentPage],
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge!
+                    .copyWith(color: Colors.white),
+              ),
             ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: BottomNavigationBar(
-                  currentIndex: value.currentPage,
-                  onTap: (val) {
-                    value.navigatePage(context: context, index: val);
-                  },
-                  items: const [
-                    BottomNavigationBarItem(
-                        icon: Icon(Icons.home), label: 'Home'),
-                    BottomNavigationBarItem(
-                        icon: Icon(Icons.info), label: 'Favourite'),
-                    BottomNavigationBarItem(
-                        icon: Icon(Icons.medical_information), label: 'Search'),
-                  ]),
+            resizeToAvoidBottomInset: false,
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+            body: value.pages[value.currentPage],
+            floatingActionButton: Container(
+              margin: EdgeInsets.symmetric(vertical: 20.h, horizontal: 30.w),
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: ColorHelper.black.withOpacity(0.7),
+                    offset: const Offset(2, 4),
+                    blurRadius: 8,
+                  )
+                ],
+                borderRadius: BorderRadius.circular(10),
+                color: ColorHelper.darkBackground,
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: BottomNavigationBar(
+                    currentIndex: value.currentPage,
+                    onTap: (val) {
+                      value.navigatePage(context: context, index: val);
+                    },
+                    items: const [
+                      BottomNavigationBarItem(
+                          icon: Icon(Icons.home), label: 'Home'),
+                      BottomNavigationBarItem(
+                          icon: Icon(Icons.info), label: 'Favourite'),
+                      BottomNavigationBarItem(
+                          icon: Icon(Icons.medical_information),
+                          label: 'Search'),
+                    ]),
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
